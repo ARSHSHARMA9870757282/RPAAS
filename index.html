@@ -2,126 +2,163 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RPaaS - Smart Packaging</title>
-
+<title>RPaaS - Reusable Packaging</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#0f172a;color:white;overflow-x:hidden}
-
-header{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    background:radial-gradient(circle at top,#1e293b,#020617);
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
 }
 
-header h1{
-    font-size:60px;
-    background:linear-gradient(90deg,#22c55e,#4ade80);
-    -webkit-background-clip:text;
-    color:transparent;
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: #020617;
+}
+nav h2 { color: #22c55e; }
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+}
+.hero h1 {
+    font-size: 40px;
+}
+.hero p {
+    color: #94a3b8;
+}
+.btn {
+    background: #22c55e;
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 20px;
 }
 
-header p{margin:15px 0;font-size:18px;opacity:.8}
-
-.btn{
-    padding:14px 28px;
-    background:#22c55e;
-    border:none;
-    border-radius:8px;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
+/* LOGIN */
+.login-box {
+    display: none;
+    text-align: center;
+    margin-top: 50px;
+}
+input {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
 }
 
-.section{padding:100px 20px;text-align:center}
-.cards{display:flex;flex-wrap:wrap;justify-content:center}
-
-.card{
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
-    margin:15px;
-    padding:25px;
-    width:260px;
-    border-radius:15px;
+/* DASHBOARD */
+.dashboard {
+    display: none;
+    padding: 20px;
 }
 
-.login-box{
-    background:rgba(255,255,255,0.05);
-    padding:30px;
-    border-radius:12px;
-    display:inline-block;
+.card {
+    background: #1e293b;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    width: 200px;
 }
 
-input{
-    padding:10px;
-    margin:10px;
-    border:none;
-    border-radius:5px;
+.logout {
+    float: right;
+    cursor: pointer;
+    color: red;
 }
-
-.status{margin-top:10px}
-
-footer{background:#020617;padding:20px;text-align:center}
 </style>
 </head>
 
 <body>
 
-<header>
-    <h1>RPaaS</h1>
-    <p>Reusable Packaging Platform</p>
-</header>
+<!-- NAVBAR -->
+<nav>
+    <h2>RPaaS</h2>
+    <button class="btn" onclick="showLogin()">Business Login</button>
+</nav>
 
-<section class="section">
-    <h2>🔐 Login System (Demo)</h2>
-    <div class="login-box">
-        <input id="user" placeholder="Enter ID"><br>
-        <input id="pass" type="password" placeholder="Enter Password"><br>
-        <button class="btn" onclick="login()">Login</button>
-        <div class="status" id="loginStatus"></div>
+<!-- HERO -->
+<div class="hero">
+    <h1>Reusable Packaging-as-a-Service</h1>
+    <p>Reduce Waste. Save Cost. Build Sustainable Future.</p>
+    <button class="btn" onclick="showLogin()">Get Started</button>
+</div>
+
+<!-- LOGIN -->
+<div class="login-box" id="loginBox">
+    <h2>Business Login</h2>
+    <input type="text" id="id" placeholder="Business ID"><br>
+    <input type="password" id="pass" placeholder="Password"><br>
+    <button class="btn" onclick="login()">Login</button>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+    <span class="logout" onclick="logout()">Logout</span>
+    <h2>Business Dashboard</h2>
+
+    <div class="card">
+        <h3>Wallet Balance</h3>
+        <p id="wallet">₹5000</p>
     </div>
-</section>
 
-<section class="section">
-    <h2>⚙️ Live Tracker</h2>
-    <input id="pkg" placeholder="Package ID">
-    <button class="btn" onclick="track()">Track</button>
-    <div id="out"></div>
-</section>
+    <div class="card">
+        <h3>Active Packages</h3>
+        <p>120</p>
+    </div>
 
-<footer>
-    <p>RPaaS Demo Project</p>
-</footer>
+    <div class="card">
+        <h3>Returned</h3>
+        <p>95</p>
+    </div>
+
+    <div class="card">
+        <h3>Lost</h3>
+        <p>25</p>
+    </div>
+
+    <h3>Scan QR (Simulation)</h3>
+    <button class="btn" onclick="scan()">Simulate Return</button>
+</div>
 
 <script>
-// HARDCODED USERS
-const business = { id: "business123", pass: "biz@123" };
-const customer = { id: "customer123", pass: "cust@123" };
+const BUSINESS_ID = "business123";
+const PASSWORD = "pass123";
 
-function login(){
-    let id=document.getElementById('user').value;
-    let pass=document.getElementById('pass').value;
-    let status=document.getElementById('loginStatus');
+let wallet = 5000;
 
-    if(id===business.id && pass===business.pass){
-        status.innerText="Logged in as Business ✅";
-    }
-    else if(id===customer.id && pass===customer.pass){
-        status.innerText="Logged in as Customer ✅";
-    }
-    else{
-        status.innerText="Invalid Credentials ❌";
+function showLogin() {
+    document.querySelector(".hero").style.display = "none";
+    document.getElementById("loginBox").style.display = "block";
+}
+
+function login() {
+    let id = document.getElementById("id").value;
+    let pass = document.getElementById("pass").value;
+
+    if (id === BUSINESS_ID && pass === PASSWORD) {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+    } else {
+        alert("Invalid Login!");
     }
 }
 
-function track(){
-    let arr=["In Use 📦","Returned ✅","Transit 🚚","Lost ❌"];
-    document.getElementById('out').innerText = arr[Math.floor(Math.random()*arr.length)];
+function logout() {
+    location.reload();
+}
+
+function scan() {
+    wallet += 20;
+    document.getElementById("wallet").innerText = "₹" + wallet;
+    alert("Package Returned & Wallet Updated!");
 }
 </script>
 
