@@ -3,114 +3,192 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reusable Packaging Service</title>
+<title>RPaaS - Smart Packaging</title>
+
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#0f172a;color:white;overflow-x:hidden}
+
+header{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:radial-gradient(circle at top,#1e293b,#020617);
 }
-header {
-    background: #0f172a;
-    color: white;
-    padding: 20px;
-    text-align: center;
+
+header h1{
+    font-size:60px;
+    background:linear-gradient(90deg,#22c55e,#4ade80);
+    -webkit-background-clip:text;
+    color:transparent;
 }
-nav {
-    display: flex;
-    justify-content: center;
-    background: #1e293b;
+
+header p{margin:15px 0;font-size:18px;opacity:.8}
+
+.btn{
+    padding:14px 28px;
+    background:#22c55e;
+    border:none;
+    border-radius:8px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
 }
-nav a {
-    color: white;
-    padding: 14px 20px;
-    text-decoration: none;
+
+.btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 20px #22c55e;
 }
-nav a:hover {
-    background: #334155;
+
+.section{padding:100px 20px;text-align:center}
+.section h2{font-size:32px;margin-bottom:40px}
+
+.cards{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
 }
-.section {
-    padding: 40px;
-    text-align: center;
+
+.card{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    margin:15px;
+    padding:25px;
+    width:260px;
+    border-radius:15px;
+    transition:.4s;
+    border:1px solid rgba(255,255,255,0.1);
 }
-.card {
-    background: white;
-    padding: 20px;
-    margin: 15px;
-    border-radius: 10px;
-    display: inline-block;
-    width: 250px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+.card:hover{
+    transform:translateY(-10px) scale(1.03);
+    box-shadow:0 0 25px rgba(34,197,94,0.4);
 }
-button {
-    padding: 10px 20px;
-    border: none;
-    background: #22c55e;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
+
+.tracker{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(12px);
+    padding:40px;
+    border-radius:15px;
+    display:inline-block;
+    border:1px solid rgba(255,255,255,0.1);
 }
-button:hover {
-    background: #16a34a;
+
+input{
+    padding:12px;
+    margin:10px;
+    border:none;
+    border-radius:6px;
+    width:200px;
 }
-footer {
-    background: #0f172a;
-    color: white;
-    text-align: center;
-    padding: 15px;
+
+.status{
+    margin-top:15px;
+    font-size:18px;
 }
+
+footer{
+    background:#020617;
+    padding:30px;
+    text-align:center;
+    opacity:.7;
+}
+
+.glow{
+    position:absolute;
+    width:300px;
+    height:300px;
+    background:#22c55e;
+    filter:blur(120px);
+    opacity:.2;
+}
+
+.glow1{top:10%;left:10%}
+.glow2{bottom:10%;right:10%}
+
 </style>
 </head>
+
 <body>
 
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+
 <header>
-    <h1>Reusable Packaging-as-a-Service</h1>
-    <p>Reduce Waste. Reuse Smart.</p>
+    <h1>RPaaS</h1>
+    <p>Reusable Packaging. Intelligent Tracking. Sustainable Future.</p>
+    <button class="btn" onclick="scrollDown()">Explore</button>
 </header>
 
-<nav>
-    <a href="#about">About</a>
-    <a href="#solution">Solution</a>
-    <a href="#model">Business Model</a>
-    <a href="#contact">Contact</a>
-</nav>
+<section class="section">
+    <h2>🚨 Problem</h2>
+    <div class="cards">
+        <div class="card">Massive plastic waste</div>
+        <div class="card">Inefficient recycling</div>
+        <div class="card">No scalable solution</div>
+    </div>
+</section>
 
-<div class="section" id="about">
-    <h2>Problem</h2>
-    <p>Single-use packaging creates massive waste and environmental damage.</p>
-</div>
+<section class="section">
+    <h2>💡 Solution</h2>
+    <div class="cards">
+        <div class="card">Reusable Packaging</div>
+        <div class="card">QR Tracking System</div>
+        <div class="card">Smart Returns</div>
+        <div class="card">Reverse Logistics</div>
+    </div>
+</section>
 
-<div class="section" id="solution">
-    <h2>Our Solution</h2>
-    <div class="card">Reusable Packaging</div>
-    <div class="card">QR Code Tracking</div>
-    <div class="card">Easy Returns</div>
-</div>
+<section class="section">
+    <h2>⚙️ Live Tracker</h2>
+    <div class="tracker">
+        <input id="pkg" placeholder="Enter Package ID">
+        <br>
+        <button class="btn" onclick="track()">Track</button>
+        <div class="status" id="out"></div>
+    </div>
+</section>
 
-<div class="section" id="model">
-    <h2>How It Works</h2>
-    <p id="flow">Click the button to see process</p>
-    <button onclick="showFlow()">Show Flow</button>
-</div>
+<section class="section">
+    <h2>📊 Insights</h2>
+    <div class="cards">
+        <div class="card">Track reuse cycles</div>
+        <div class="card">Waste reduction data</div>
+        <div class="card">Business analytics</div>
+    </div>
+</section>
 
-<div class="section" id="contact">
-    <h2>Contact Us</h2>
-    <input type="text" placeholder="Your Name"><br><br>
-    <input type="email" placeholder="Your Email"><br><br>
-    <button onclick="submitForm()">Submit</button>
-</div>
+<section class="section">
+    <h2>💰 Revenue</h2>
+    <div class="cards">
+        <div class="card">₹15–₹25 per use</div>
+        <div class="card">Subscription model</div>
+        <div class="card">Premium services</div>
+    </div>
+</section>
 
 <footer>
-    <p>© 2026 RPaaS Project</p>
+    <p>RPaaS | Innovation Project</p>
 </footer>
 
 <script>
-function showFlow() {
-    document.getElementById("flow").innerText = "Business onboard → Packaging given → Customer pays deposit → Return via pickup/drop → Refund processed";
+function scrollDown(){
+    window.scrollTo({top:window.innerHeight,behavior:'smooth'})
 }
 
-function submitForm() {
-    alert("Thank you! We will contact you soon.");
+function track(){
+    let val=document.getElementById('pkg').value
+    let out=document.getElementById('out')
+    if(val==""){
+        out.innerText="Enter ID first"
+        return
+    }
+    let arr=["In Use 📦","Returned ✅","Transit 🚚","Lost ❌"]
+    out.innerText="Status: "+arr[Math.floor(Math.random()*arr.length)]
 }
 </script>
 
