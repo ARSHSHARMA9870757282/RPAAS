@@ -3,192 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RPaaS - Smart Packaging</title>
-
+<title>EcoPack</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#0f172a;color:white;overflow-x:hidden}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-header{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    background:radial-gradient(circle at top,#1e293b,#020617);
-}
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #0f2027, #2c5364);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
-header h1{
-    font-size:60px;
-    background:linear-gradient(90deg,#22c55e,#4ade80);
-    -webkit-background-clip:text;
-    color:transparent;
-}
+    .card {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(15px);
+        padding: 30px;
+        border-radius: 20px;
+        width: 320px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        animation: fadeIn 0.6s ease;
+    }
 
-header p{margin:15px 0;font-size:18px;opacity:.8}
+    h1 { margin-bottom: 15px; }
 
-.btn{
-    padding:14px 28px;
-    background:#22c55e;
-    border:none;
-    border-radius:8px;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.3s;
-}
+    input {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 10px;
+        outline: none;
+    }
 
-.btn:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 20px #22c55e;
-}
+    button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 10px;
+        background: #00c853;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
 
-.section{padding:100px 20px;text-align:center}
-.section h2{font-size:32px;margin-bottom:40px}
+    button:hover {
+        background: #00e676;
+        transform: scale(1.05);
+    }
 
-.cards{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-}
+    .hidden { display: none; }
 
-.card{
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
-    margin:15px;
-    padding:25px;
-    width:260px;
-    border-radius:15px;
-    transition:.4s;
-    border:1px solid rgba(255,255,255,0.1);
-}
+    .wallet {
+        font-size: 24px;
+        margin: 15px 0;
+        color: #00e676;
+    }
 
-.card:hover{
-    transform:translateY(-10px) scale(1.03);
-    box-shadow:0 0 25px rgba(34,197,94,0.4);
-}
-
-.tracker{
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(12px);
-    padding:40px;
-    border-radius:15px;
-    display:inline-block;
-    border:1px solid rgba(255,255,255,0.1);
-}
-
-input{
-    padding:12px;
-    margin:10px;
-    border:none;
-    border-radius:6px;
-    width:200px;
-}
-
-.status{
-    margin-top:15px;
-    font-size:18px;
-}
-
-footer{
-    background:#020617;
-    padding:30px;
-    text-align:center;
-    opacity:.7;
-}
-
-.glow{
-    position:absolute;
-    width:300px;
-    height:300px;
-    background:#22c55e;
-    filter:blur(120px);
-    opacity:.2;
-}
-
-.glow1{top:10%;left:10%}
-.glow2{bottom:10%;right:10%}
-
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 </style>
 </head>
-
 <body>
 
-<div class="glow glow1"></div>
-<div class="glow glow2"></div>
+<div id="home" class="card">
+    <h1>♻️ EcoPack</h1>
+    <p>Reusable Packaging System</p>
+    <button onclick="show('customerLogin')">Customer</button>
+    <button onclick="show('businessLogin')">Business</button>
+</div>
 
-<header>
-    <h1>RPaaS</h1>
-    <p>Reusable Packaging. Intelligent Tracking. Sustainable Future.</p>
-    <button class="btn" onclick="scrollDown()">Explore</button>
-</header>
+<div id="customerLogin" class="card hidden">
+    <h1>Customer Login</h1>
+    <input placeholder="Username">
+    <input type="password" placeholder="Password">
+    <button onclick="show('customerDash')">Login</button>
+</div>
 
-<section class="section">
-    <h2>🚨 Problem</h2>
-    <div class="cards">
-        <div class="card">Massive plastic waste</div>
-        <div class="card">Inefficient recycling</div>
-        <div class="card">No scalable solution</div>
-    </div>
-</section>
+<div id="businessLogin" class="card hidden">
+    <h1>Business Login</h1>
+    <input placeholder="Business Name">
+    <input type="password" placeholder="Password">
+    <button onclick="show('businessDash')">Login</button>
+</div>
 
-<section class="section">
-    <h2>💡 Solution</h2>
-    <div class="cards">
-        <div class="card">Reusable Packaging</div>
-        <div class="card">QR Tracking System</div>
-        <div class="card">Smart Returns</div>
-        <div class="card">Reverse Logistics</div>
-    </div>
-</section>
+<div id="customerDash" class="card hidden">
+    <h1>Wallet</h1>
+    <div class="wallet">₹<span id="money">100</span></div>
+    <button onclick="addMoney()">Return Package +₹20</button>
+    <button onclick="reset()">Logout</button>
+</div>
 
-<section class="section">
-    <h2>⚙️ Live Tracker</h2>
-    <div class="tracker">
-        <input id="pkg" placeholder="Enter Package ID">
-        <br>
-        <button class="btn" onclick="track()">Track</button>
-        <div class="status" id="out"></div>
-    </div>
-</section>
-
-<section class="section">
-    <h2>📊 Insights</h2>
-    <div class="cards">
-        <div class="card">Track reuse cycles</div>
-        <div class="card">Waste reduction data</div>
-        <div class="card">Business analytics</div>
-    </div>
-</section>
-
-<section class="section">
-    <h2>💰 Revenue</h2>
-    <div class="cards">
-        <div class="card">₹15–₹25 per use</div>
-        <div class="card">Subscription model</div>
-        <div class="card">Premium services</div>
-    </div>
-</section>
-
-<footer>
-    <p>RPaaS | Innovation Project</p>
-</footer>
+<div id="businessDash" class="card hidden">
+    <h1>Business Panel</h1>
+    <p>Packages Used: 50</p>
+    <p>Returns Pending: 10</p>
+    <button onclick="reset()">Logout</button>
+</div>
 
 <script>
-function scrollDown(){
-    window.scrollTo({top:window.innerHeight,behavior:'smooth'})
+let balance = 100;
+
+function show(id) {
+    document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
 }
 
-function track(){
-    let val=document.getElementById('pkg').value
-    let out=document.getElementById('out')
-    if(val==""){
-        out.innerText="Enter ID first"
-        return
-    }
-    let arr=["In Use 📦","Returned ✅","Transit 🚚","Lost ❌"]
-    out.innerText="Status: "+arr[Math.floor(Math.random()*arr.length)]
+function addMoney() {
+    balance += 20;
+    document.getElementById('money').innerText = balance;
+}
+
+function reset() {
+    location.reload();
 }
 </script>
 
